@@ -4,7 +4,7 @@ import time
 import threading
 from transformers import AutoTokenizer, AutoConfig, AutoModelForCausalLM
 
-# Check for GPU availability and set device
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
@@ -20,10 +20,9 @@ except Exception as e:
     print(f"Error loading model: {e}")
     raise
 
-# Global stop event
 stop_event = threading.Event()
 
-# Function to generate response with typing animation
+
 def generate_response(prompt):
     global stop_event
     stop_event.clear()
@@ -52,7 +51,7 @@ def generate_response(prompt):
         time.sleep(0.05)
         yield animated_response
 
-# Function to stop response generation
+
 def stop_generation():
     global stop_event
     stop_event.set()
@@ -73,6 +72,6 @@ def create_interface():
     
     return demo
 
-# Launch the interface
 iface = create_interface()
 iface.launch()
+
